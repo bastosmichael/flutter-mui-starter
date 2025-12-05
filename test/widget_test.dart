@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:semper_made/main.dart';
+import 'package:flutter_mui_starter/main.dart';
 
 
 void main() {
@@ -58,9 +58,9 @@ void main() {
         .setMockMessageHandler('flutter/assets', null);
   });
 
-  testWidgets('SemperMadeApp renders without errors', (tester) async {
+  testWidgets('FlutterMuiStarterApp renders without errors', (tester) async {
     await tester.pumpWidget(
-      SemperMadeApp(
+      FlutterMuiStarterApp(
         textThemeOverride: Typography.material2021().black,
       ),
     );

@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
-import 'package:semper_made/config/router.dart';
-import 'package:semper_made/theme/color_themes.dart';
-import 'package:semper_made/theme/text_themes.dart';
+import 'package:flutter_mui_starter/config/router.dart';
+import 'package:flutter_mui_starter/theme/color_themes.dart';
+import 'package:flutter_mui_starter/theme/text_themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-void main() => runApp(const SemperMadeApp());
+void main() => runApp(const FlutterMuiStarterApp());
 
 /// The main app.
-class SemperMadeApp extends StatelessWidget {
-  /// Constructs a [SemperMadeApp]
-  const SemperMadeApp({super.key, this.textThemeOverride});
+class FlutterMuiStarterApp extends StatelessWidget {
+  /// Constructs a [FlutterMuiStarterApp]
+  const FlutterMuiStarterApp({super.key, this.textThemeOverride});
 
   /// Optional override for the app text theme (useful for testing without
   /// google_fonts asset loading).
@@ -20,7 +20,7 @@ class SemperMadeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'SemperMade Demo',
+      title: 'FlutterMuiStarter Demo',
       routerConfig: router,
       theme: ThemeData(
           useMaterial3: true,
