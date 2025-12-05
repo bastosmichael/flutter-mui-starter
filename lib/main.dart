@@ -10,7 +10,11 @@ void main() => runApp(const SemperMadeApp());
 /// The main app.
 class SemperMadeApp extends StatelessWidget {
   /// Constructs a [SemperMadeApp]
-  const SemperMadeApp({super.key});
+  const SemperMadeApp({super.key, this.textThemeOverride});
+
+  /// Optional override for the app text theme (useful for testing without
+  /// google_fonts asset loading).
+  final TextTheme? textThemeOverride;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,11 @@ class SemperMadeApp extends StatelessWidget {
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: lightColorScheme,
-          textTheme: textTheme),
+          textTheme: textThemeOverride ?? textTheme),
       darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: darkColorScheme,
-          textTheme: textTheme),
+          textTheme: textThemeOverride ?? textTheme),
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         breakpoints: [
