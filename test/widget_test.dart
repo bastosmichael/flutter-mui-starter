@@ -6,8 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,8 +30,10 @@ void main() {
         .buffer
         .asByteData();
 
-    ServicesBinding.instance.defaultBinaryMessenger
-        .setMockMessageHandler('flutter/assets', (message) async {
+    final defaultMessenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+
+    defaultMessenger.setMockMessageHandler('flutter/assets', (message) async {
       if (message == null) return null;
 
       final key = utf8.decode(message.buffer.asUint8List());
@@ -54,7 +54,7 @@ void main() {
   });
 
   tearDownAll(() {
-    ServicesBinding.instance.defaultBinaryMessenger
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMessageHandler('flutter/assets', null);
   });
 
