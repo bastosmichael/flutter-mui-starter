@@ -1,107 +1,127 @@
 # Flutter MUI Starter
 
-Flutter Starter using Material Design UI.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Prerequisites
+A Flutter starter template for SaaS-ready mobile, desktop, and web experiences using Material Design 3. It provides responsive layouts, opinionated theming, and routed navigation so teams can prototype or launch production apps quickly.
 
-Before cloning the project, please ensure you have the following software installed on your system:
+## Table of Contents
 
-- [Flutter (via FVM)](https://fvm.app/docs/getting_started/installation)
-- [Dart SDK](https://dart.dev/get-dart)
-- [Android Studio and Xcode (for respective platforms)](https://developer.android.com/studio/install?gclid=CjwKCAjwkLCkBhA9EiwAka9QRqyhH_JdXd7jkPc2woM2s7DkaxkS53l1_dmqVGXYsmnrRqySiZn--hoCbd4QAvD_BwE&gclsrc=aw.ds)
-- [Cocoapods (for iOS dependencies)](https://cocoapods.org/)
+- [Features](#features)
+- [Demo](#demo)
+- [Setup](#setup)
+  - [Simple Mode Setup](#simple-mode-setup)
+  - [Advanced Mode Setup](#advanced-mode-setup)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [FAQ](#faq)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
 
-## Project Setup
+## Features
 
-Follow these instructions to set up the project locally on your system:
+- **Material Design 3 theming** with light/dark palettes and typography built on Roboto for consistent brand expression out of the box.
+- **Responsive layouts** powered by `responsive_framework`, adapting navigation and content for mobile, tablet, desktop, and 4K breakpoints.
+- **Routed navigation** via `go_router`, including menu-aware scaffolding that automatically wires routes to buttons or drawers.
+- **Starter home screen** scaffolded with stateful controller patterns for rapid feature extension.
+- **Production-friendly package set** including cached images, HTTP utilities, and URL launching for common SaaS workflows.
 
-1. Clone the repository:
+## Demo
 
-   ```
+No public demo is available yet. Run locally with the setup steps below to explore the starter.
+
+## Setup
+
+This project targets Flutter 3+ and can be run with the system Flutter SDK or through [FVM](https://fvm.app/) for version management. There are no required API keys by default.
+
+### Simple Mode Setup
+
+1. **Clone the Repository**
+   ```bash
    git clone https://gitlab.com/bastosmichael/flutter-mui-starter.git
-   ```
-
-2. Change directory to the project folder:
-
-   ```
    cd flutter-mui-starter
    ```
 
-3. Install FVM:
+2. **Install Dependencies**
 
-   ```
-   dart pub global activate fvm
-   ```
-
-4. Set the Flutter version for this project:
-
-   ```
-   fvm use stable
-   ```
-
-5. Get the packages:
-   ```
+   ```bash
    flutter pub get
    ```
 
-## Running the Project
+3. **Run the App**
 
-### Development Environment
+   ```bash
+   flutter run
+   ```
 
-To run the application in debug mode, run the following command in the project directory:
+### Advanced Mode Setup
 
-```
-flutter run
-```
+Use this path if you want pinned Flutter versions, multi-platform builds, or custom environment targeting.
 
-### Production Environment
+1. **Install FVM and pin Flutter**
+   ```bash
+   dart pub global activate fvm
+   fvm use stable
+   ```
 
-To run the application in release mode, run the following command in the project directory:
+2. **Install Dependencies with FVM**
+   ```bash
+   fvm flutter pub get
+   ```
 
-```
-flutter run --release
-```
+3. **Configure Optional Environment Variables**
+   Create a `.env` (or use platform-specific env injection) if you introduce APIs. Typical variables include:
+   - `APP_MODE` (e.g., `production`, `staging`)
+   - `API_BASE_URL`
+   - `SENTRY_DSN`
 
-## Building the Project
+4. **Run with Target Options**
+   ```bash
+   fvm flutter run --dart-define=APP_MODE=staging
+   ```
 
-### Android
+## Usage
 
-To create an APK for the application, run the following command in the project directory:
-
-```
-flutter build apk --release
-```
-
-This will generate an APK file in the `build/app/outputs/flutter-apk/` directory.
-
-### iOS
-
-To create an IPA for the application, you'll first need to create a build archive. Navigate to the ios folder (`cd ios`) in your project directory and then:
-
-```
-xcodebuild archive -scheme Runner -archivePath ../build/Runner.xcarchive
-```
-
-Then to create the IPA, use the following command:
-
-```
-xcodebuild -exportArchive -archivePath build/Runner.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build
-```
+1. Launch the app to see the responsive scaffold with a demo home screen.
+2. Add routes in `lib/config/router.dart` and include them in `AppRoutes.routes` to surface them automatically in the header/drawer navigation.
+3. Customize theming through `lib/theme/color_themes.dart` and `lib/theme/text_themes.dart` for brand alignment.
+4. Extend the home controller in `lib/screens/home/home_controller.dart` to integrate your SaaS flows (authentication, dashboards, data capture, etc.).
+5. Leverage included packages (`http`, `cached_network_image`, `url_launcher`) to connect to backend services and external resources.
 
 ## Deployment
 
-### Google Play Store
+Common strategies:
 
-1. Follow the guide here to upload your APK: [Publish your app](https://support.google.com/googleplay/android-developer/answer/113469)
+- **Android**: `flutter build apk --release` and distribute via Play Console.
+- **iOS**: Archive with Xcode (`xcodebuild archive ...`) and export an IPA for App Store Connect.
+- **Web/Desktop**: Use `flutter build web`, `flutter build macos`, `flutter build linux`, or `flutter build windows` and host on your preferred provider (Firebase Hosting, S3/CloudFront, etc.).
 
-### iOS App Store
+[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://www.netlify.com/)
 
-1. Follow the guide here to upload your IPA: [Distribute an app through App Store](https://help.apple.com/xcode/mac/current/#/dev067853c94)
+## Contributing
 
-## Contribution
+Contributions are welcome! Please fork the repo, create a feature branch, and open a pull request. Refer to `CONTRIBUTING.md` if available, and follow Flutter best practices (format code with `flutter format` and include tests where applicable).
 
-Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests.
+## FAQ
+
+- **Which Flutter version is required?** Any 3.x release is supported; FVM steps above help pin a stable toolchain.
+- **Do I need API keys to run locally?** No. The starter has no required external services. Add your own `.env` when integrating third-party APIs.
+- **How do I add more pages?** Define new routes in `lib/config/router.dart`, append their names to `AppRoutes.routes`, and wrap them with `MenuScaffold` for responsive navigation.
+- **Can I switch themes at runtime?** Both light and dark Material 3 color schemes are defined. Hook into `ThemeMode` or settings logic to toggle based on user preference.
 
 ## License
 
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+This project is licensed under the MIT license.
+
+## Acknowledgements
+
+- [Flutter](https://flutter.dev/) for the cross-platform framework.
+- [Material Design 3](https://m3.material.io/) for UI patterns.
+- [responsive_framework](https://pub.dev/packages/responsive_framework) for adaptive layouts.
+- [go_router](https://pub.dev/packages/go_router) for declarative routing.
+- [google_fonts](https://pub.dev/packages/google_fonts) for typography.
+
+## Contact
+
+For questions or support, please open an issue on the repository or reach the maintainer at `maintainer@example.com`.
