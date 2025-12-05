@@ -18,11 +18,9 @@ const lightColorScheme = ColorScheme(
   errorContainer: Color(0xFFFFEBEE), // light red
   onError: Color(0xFFFFFFFF), // white
   onErrorContainer: Color(0xFFB71C1C), // red
-  background: Color(0xFFECEFF1), // light blue grey
-  onBackground: Color(0xFF000000), // black
-  surface: Color(0xFFCFD8DC), // light blue grey
+  surface: Color(0xFFECEFF1), // light blue grey
   onSurface: Color(0xFF000000), // black
-  surfaceVariant: Color(0xFFB0BEC5), // light blue grey
+  surfaceContainerHighest: Color(0xFFB0BEC5), // light blue grey
   onSurfaceVariant: Color(0xFF000000), // black
   outline: Color(0xFF78909C), // blue grey
   onInverseSurface: Color(0xFFFFFFFF), // white
@@ -52,11 +50,9 @@ const darkColorScheme = ColorScheme(
   errorContainer: Color(0xFFB71C1C), // dark red
   onError: Color(0xFFFFFFFF), // white
   onErrorContainer: Color(0xFFD50000), // red
-  background: Color(0xFF102027), // very dark blue grey
-  onBackground: Color(0xFFCFD8DC), // light blue grey
   surface: Color(0xFF102027), // very dark blue grey
   onSurface: Color(0xFFCFD8DC), // light blue grey
-  surfaceVariant: Color(0xFF37474F), // blue grey
+  surfaceContainerHighest: Color(0xFF37474F), // blue grey
   onSurfaceVariant: Color(0xFFCFD8DC), // light blue grey
   outline: Color(0xFF546E7A), // blue grey
   onInverseSurface: Color(0xFF102027), // very dark blue grey

@@ -1,8 +1,8 @@
 // Routes
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:semperMade/components/menu_scaffold.dart';
-import 'package:semperMade/screens/home/home_controller.dart';
+import 'package:semper_made/components/menu_scaffold.dart';
+import 'package:semper_made/screens/home/home_controller.dart';
 
 class AppRoutes {
   static const home = 'home';
