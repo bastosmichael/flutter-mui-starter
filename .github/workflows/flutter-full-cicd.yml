@@ -263,12 +263,10 @@ jobs:
           flutter build windows --release
 
   deploy-web:
-    name: Deploy Web (S3 & GitHub Pages)
+    name: Deploy Web (GitHub Pages)
     runs-on: ubuntu-latest
-    needs: linux-and-web-builds
+    needs: [lint, test, linux-and-web-builds]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    env:
-      AWS_DEPLOY_ENABLED: ${{ secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.AWS_S3_BUCKET_NAME != '' && secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -285,25 +283,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web/
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        if: env.AWS_DEPLOY_ENABLED == 'true'
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Deploy to AWS S3
-        if: env.AWS_DEPLOY_ENABLED == 'true'
-        run: aws s3 sync ./build/web/ s3://${{ env.AWS_S3_BUCKET_NAME }} --acl public-read --delete --cache-control max-age=604800
-
-      - name: Create AWS Cloudfront Invalidation
-        if: env.AWS_DEPLOY_ENABLED == 'true'
-        run: aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
-
   dependabot-automation:
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [lint, test, linux-and-web-builds, android-build, apple-builds, windows-build, deploy-web]
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Dependabot metadata
