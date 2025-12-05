@@ -5,25 +5,66 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:semper_made/main.dart';
 
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  setUpAll(() {
+    const manifestJson = '''
+{
+  "packages/google_fonts/google_fonts/Roboto-Regular.ttf": ["packages/google_fonts/google_fonts/Roboto-Regular.ttf"],
+  "packages/google_fonts/google_fonts/Roboto-Medium.ttf": ["packages/google_fonts/google_fonts/Roboto-Medium.ttf"],
+  "packages/google_fonts/google_fonts/Roboto-Light.ttf": ["packages/google_fonts/google_fonts/Roboto-Light.ttf"]
+}
+''';
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final manifestByteData = utf8.encoder
+        .convert(manifestJson)
+        .buffer
+        .asByteData();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    final defaultMessenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+
+    defaultMessenger.setMockMessageHandler('flutter/assets', (message) async {
+      if (message == null) return null;
+
+      final key = utf8.decode(message.buffer.asUint8List());
+
+      if (key == 'AssetManifest.json') {
+        return manifestByteData;
+      }
+
+      // Allow tests to proceed even if fonts are not available.
+      if (key.startsWith('packages/google_fonts')) {
+        return ByteData(0);
+      }
+
+      return null;
+    });
+
+    GoogleFonts.config.allowRuntimeFetching = false;
+  });
+
+  tearDownAll(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMessageHandler('flutter/assets', null);
+  });
+
+  testWidgets('SemperMadeApp renders without errors', (tester) async {
+    await tester.pumpWidget(
+      SemperMadeApp(
+        textThemeOverride: Typography.material2021().black,
+      ),
+    );
+
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }
