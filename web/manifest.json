@@ -1,6 +1,6 @@
 {
-    "name": "semperMade",
-    "short_name": "semperMade",
+    "name": "FlutterMuiStarter",
+    "short_name": "FlutterMuiStarter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

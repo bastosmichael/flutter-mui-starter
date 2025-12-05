@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "semperMade" "\0"
+            VALUE "FileDescription", "FlutterMuiStarter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "semperMade" "\0"
+            VALUE "InternalName", "FlutterMuiStarter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "semperMade.exe" "\0"
-            VALUE "ProductName", "semperMade" "\0"
+            VALUE "OriginalFilename", "FlutterMuiStarter.exe" "\0"
+            VALUE "ProductName", "FlutterMuiStarter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
