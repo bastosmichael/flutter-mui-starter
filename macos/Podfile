@@ -40,4 +40,22 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_macos_build_settings(target)
   end
+
+  # AUTOMATIC FIX: Strip extended attributes (resource forks) from the built app
+  # This prevents "resource fork, Finder information, or similar detritus not allowed" errors
+  # caused by file system sync tools or unzipping.
+  puts "Injecting xattr cleanup into Pods-Runner-frameworks.sh"
+  Dir.glob("**/Pods-Runner-frameworks.sh").each do |script_path|
+    if File.exist?(script_path)
+      content = File.read(script_path)
+      unless content.include?("xattr -cr")
+        File.open(script_path, "a") do |f|
+          f.puts ""
+          f.puts "# Fix for CodeSign error: resource fork, Finder information"
+          f.puts 'echo "Cleaning extended attributes from $TARGET_BUILD_DIR/$WRAPPER_NAME"'
+          f.puts 'xattr -cr "$TARGET_BUILD_DIR/$WRAPPER_NAME"'
+        end
+      end
+    end
+  end
 end
