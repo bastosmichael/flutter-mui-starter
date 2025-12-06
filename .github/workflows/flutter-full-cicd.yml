@@ -98,6 +98,7 @@ jobs:
             ~/.pub-cache
             .dart_tool
             build
+          key: ${{ runner.os }}-flutter-v2-${{ hashFiles('pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-flutter-v2-
 
