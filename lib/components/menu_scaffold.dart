@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 class MenuScaffold extends StatelessWidget {
   final Widget child;
   final List<String> routeNames;
-  const MenuScaffold({Key? key, required this.child, required this.routeNames})
-      : super(key: key);
+  const MenuScaffold({super.key, required this.child, required this.routeNames});
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

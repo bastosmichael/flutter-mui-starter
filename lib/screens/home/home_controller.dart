@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeController extends StatefulWidget {
-  const HomeController({Key? key}) : super(key: key);
+  const HomeController({super.key});
   @override
   State<HomeController> createState() => _HomeControllerState();
 }
