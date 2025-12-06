@@ -1,0 +1,8 @@
+
+Running pod install...                                              4.6s
+Building macOS application...                                   
+/Users/michael/Documents/GitHub.nosync/flutter-mui-starter/build/macos/Build/Products/Debug/FlutterMuiStarter.app: resource fork, Finder information, or similar detritus not allowed
+Command CodeSign failed with a nonzero exit code
+** BUILD FAILED **
+
+Build process failed
